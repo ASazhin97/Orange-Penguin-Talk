@@ -70,11 +70,13 @@ public class IconsFragment extends Fragment implements View.OnClickListener{
 
         //get Screen Height to use for scaling
         screenWidth = getScreenWidth();
-        buttonParam = (screenWidth/4);
+        buttonParam = (screenWidth/4); //can be changed later in order to get more buttons on screen
 
-        //original state is 0 so will show categories state 1 will show icons
+        //this gets the arguments
         Bundle arguments = this.getArguments();
 
+        //if its empty sets it to default which will show the first categories.
+        //if it isnt itll get the new state
         if(arguments != null && arguments.containsKey("STATE")) {
 
             _state = arguments.getString("STATE");
@@ -193,8 +195,29 @@ public class IconsFragment extends Fragment implements View.OnClickListener{
 
     }
 
+
+    /*
+    This scales the pictures given according to the creen width
+    this will likely require tweaking in the future as I had quite a bit of trouble of chaning
+    the picture size. I did this incremental approach for now but using a ration would be best.
+     */
     public Drawable scaleDrawable(Drawable drawable){
-        ScaleDrawable sd = new ScaleDrawable(drawable, Gravity.TOP, .70f, .70f);
+        float scale  = .70f;
+        System.out.println("button width " + buttonParam);
+        if (buttonParam <= 300){
+            scale = .7f;
+            System.out.println(" SCALE SCALE SCALE " + scale);
+        } else if (buttonParam > 300 && buttonParam <= 350) {
+            scale = .6f;
+            System.out.println(" SCALE SCALE SCALE " + scale);
+        }else if (buttonParam > 350 && buttonParam <= 400){
+            scale = .4f;
+        } else if(buttonParam > 400){
+            scale = .2f;
+            System.out.println(" SCALE SCALE SCALE " + scale);
+        }
+
+        ScaleDrawable sd = new ScaleDrawable(drawable, Gravity.TOP, scale, scale);
 
         int level = 800;
         sd.setLevel(level);

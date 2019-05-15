@@ -49,11 +49,20 @@ public class SQLHelperCategories extends SQLiteOpenHelper {
         Repeat the lines given here. This will automatically
         add the category to the display
          */
-        // method goes insertCategory(db, <name of category>, R.drawable.<name of file>);
+        // method goes insertCategory(db, <name of category>, name, type,R.drawable.<name of file>);
+            insertCategory(db, "default", "Emotions", 0, R.drawable.emotions);
+            insertCategory(db, "default", "Emotions", 0, R.drawable.emotions);
+            insertCategory(db, "default", "Emotions", 0, R.drawable.emotions);
             insertCategory(db, "default", "Emotions", 0, R.drawable.emotions);
             insertCategory(db, "default","Home", 0, R.drawable.home);
             insertCategory(db, "default","Animals", 0, R.drawable.animals);
             insertCategory(db, "Animals", "dog", 1, R.drawable.animals);
+            insertCategory(db, "Animals", "собака", 1, R.drawable.animals);
+            insertCategory(db, "Emotions", "happy", 1, R.drawable.emotions);
+            insertCategory(db, "Emotions", "happy", 1, R.drawable.emotions);
+            insertCategory(db, "Emotions", "happy", 1, R.drawable.emotions);
+            insertCategory(db, "Emotions", "happy", 1, R.drawable.emotions);
+            insertCategory(db, "Emotions", "happy", 1, R.drawable.emotions);
 
         }
 

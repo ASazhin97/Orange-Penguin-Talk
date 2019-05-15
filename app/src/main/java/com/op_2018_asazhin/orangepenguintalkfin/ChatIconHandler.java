@@ -19,6 +19,7 @@ public class ChatIconHandler {
 
     }
 
+    //this class handes the list over to the chat fragment
     public void addToLists(Button newButton, TextView newText){
         _chatFragmnet.addToChatbox(newButton, newText);
     }

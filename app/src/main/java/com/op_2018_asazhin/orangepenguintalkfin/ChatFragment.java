@@ -1,7 +1,9 @@
 package com.op_2018_asazhin.orangepenguintalkfin;
 
 
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.speech.tts.TextToSpeech;
@@ -33,14 +35,14 @@ public class ChatFragment extends Fragment implements View.OnClickListener, View
 
     //layouts
     LinearLayout _linearView;
+    HorizontalScrollView _scrollView;
 
     //buttons
     Button _playButton;
     Button _deleteButton;
+    int buttonParam = 120;
 
     TextToSpeech _textToSpeech;
-
-
 
     public ChatFragment() {
         // Required empty public constructor
@@ -53,16 +55,29 @@ public class ChatFragment extends Fragment implements View.OnClickListener, View
         // Inflate the layout for this fragment
         View _v = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        //stats lists
+
+
+        //strats lists
         _iconbuttonList = new ArrayList<Button>();
         _texticonList = new ArrayList<TextView>();
 
         //get the linear view
        _linearView = _v.findViewById(R.id.chat_lin_view);
+       _scrollView = _v.findViewById(R.id.chat_scroll_view);
+
+
 
        //get the buttons
         _playButton = _v.findViewById(R.id.play_button);
         _deleteButton = _v.findViewById(R.id.delete_button);
+
+        //sizes
+        int size = getScreenWidth()/5;
+        _playButton.setWidth(size);
+        _deleteButton.setHeight(size/2);
+        _scrollView.setMinimumWidth(getScreenWidth()-size);
+
+
 
         _playButton.setOnClickListener(this);
         _deleteButton.setOnClickListener(this);
@@ -73,7 +88,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener, View
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    _textToSpeech.setLanguage(Locale.ENGLISH);
+                    _textToSpeech.setLanguage(Locale.getDefault());
                 }
             }
         });
@@ -88,8 +103,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener, View
         //create copies of the btn
         Button btn = new Button(getActivity());
         Drawable dr = btnadd.getCompoundDrawables()[1];
-        btn.setHeight(btnadd.getHeight());
-        btn.setWidth(btnadd.getWidth());
+        //Drawable scaled = scaleDrawable(dr);
+        btn.setHeight(230);
+        btn.setWidth(150);
         btn.setCompoundDrawablesWithIntrinsicBounds(null, dr, null, null);
         btn.setGravity(Gravity.BOTTOM);
         btn.setOnClickListener(this);
@@ -131,6 +147,16 @@ public class ChatFragment extends Fragment implements View.OnClickListener, View
         }
 
         _linearView.removeAllViews();
+    }
+
+    public Drawable scaleDrawable(Drawable drawable){
+        float scale  = .70f;
+
+        ScaleDrawable sd = new ScaleDrawable(drawable, Gravity.TOP, scale, scale);
+
+        int level = 800;
+        sd.setLevel(level);
+        return sd;
     }
 
 
@@ -187,5 +213,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener, View
         }
 
         return false;
+    }
+
+    //gets the width of the screen to set the buttons may need to be changed for a static button size
+    public int getScreenWidth(){
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 }
